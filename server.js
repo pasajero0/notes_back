@@ -13,9 +13,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 MongoClient.connect(db.url, { useNewUrlParser: true }, (err, client) => {
   if(err) return console.log(err); // обработка ошибки
   const database = client.db(db.dbName); // указываем к какой базе подключаться
-  require('./app/routes/routes.js')(app, database); // импортируем роуты и передаем ссылку на объект нашего приложения и подключения к БД
+  require('./routes/routes.js')(app, database); // импортируем роуты и передаем ссылку на объект нашего приложения и подключения к БД
   app.listen(port, () => { // назначаем порт для прослушивания
     console.log('Connected to '+ db.url);
     console.log('We are live on http://localhost:'+port);
   });
 })
+
