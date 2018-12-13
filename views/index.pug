@@ -9,11 +9,7 @@ html(lang='en')
   body
     section.section.menu
       .container-new
-        h2.menu__title
-          span
-            | N
-            i.fas.fa-globe-americas
-          | tes
+        h2.menu__title notes
         .menu__btns
           button.btn
             i.far.fa-clipboard
@@ -24,7 +20,7 @@ html(lang='en')
         //p.cap no notes yet
 
         each note, i in notes
-          div.note(id= note._id)
+          a.note(id= note._id href='/notes/'+note._id)
            h2.note-title= note.title
            p.note-txt= note.content
 

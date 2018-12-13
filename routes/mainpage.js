@@ -1,5 +1,5 @@
-const http 	= require('http')
-const fs 		= require('fs')
+// const http 	= require('http')
+// const fs 		= require('fs')
 
 module.exports = (app, db) => {
 	app.route('/')
@@ -12,6 +12,6 @@ module.exports = (app, db) => {
 	    	console.log(error)
 	    }
 	    res.render('index', { notes: allNotes.reverse()})
-			// res.end('hello notes')
+			res.end()
 		})
 }

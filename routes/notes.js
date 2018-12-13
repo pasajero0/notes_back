@@ -43,8 +43,16 @@ module.exports = (app, db) => {
 				result = await db.collection('notes').findOne(details)
 			} catch (err) { 
 			  console.log(err)
+			}	
+			if (result.type === 'note'){
+				res.render('note', { 
+					title: result.title, 
+					text: result.content, 
+					date: result.date
+				})
 			}
-				res.send(result)
+			// res.send(result)
+			res.end()
 		})
 //// edit certain note
 		.put ( async (req, res) => {
