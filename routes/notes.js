@@ -9,8 +9,7 @@ module.exports = (app, db) => {
 				title: req.body.title, 
 				content: req.body.body,
 				type: 'note',
-				date: moment().format('DD.MM.YYYY, HH:mm:ss')
-				// date: moment()
+				date: moment().format('DD.MM.YYYY at HH:mm:ss')
 			}
 			try{
 			 await db.collection('notes').insertOne(note) 	
@@ -48,7 +47,8 @@ module.exports = (app, db) => {
 				res.render('note', { 
 					title: result.title, 
 					text: result.content, 
-					date: result.date
+					date: result.date,
+					id: result._id
 				})
 			}
 			// res.send(result)
@@ -62,8 +62,7 @@ module.exports = (app, db) => {
 				title: req.body.title, 
 				content: req.body.body,
 				type: 'note',
-				date: moment().format('DD.MM.YYYY, HH:mm:ss')
-				// date: moment()
+				date: moment().format('DD.MM.YYYY at HH:mm:ss')
 			}
 			try{
 		    await db.collection('notes').update(details, note)	
