@@ -17,7 +17,7 @@ module.exports = (app, db) => {
             } catch (err) {
                 console.log(err)
             }
-            res.render('make-list');
+            res.render('list');
             res.end()
         });
     		// .get( async (req, res) => {
