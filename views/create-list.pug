@@ -3,11 +3,11 @@ html(lang='en')
 	head
 		meta(charset='UTF-8')
 		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-		title
-		link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
-		link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css')
-		link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-		link(rel='stylesheet', href='../css/style.min.css')
+	title TODO List
+	link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+	link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+	link(href='https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&subset=cyrillic', rel='stylesheet')
+	link(rel='stylesheet', href='css/style.min.css')
 	body
 		section.top-content
 			.container
@@ -27,11 +27,10 @@ html(lang='en')
 			.container
 				.row
 					.col
-						h2.note-title #{title}
+						input.form-control.form-control-lg.unfinished-tasks-list-title(type='text', placeholder='Add title', name='title')
 						h5.todo-list-title New tasks
 						span.task-line
 						ul#unfinished-tasks-list.unfinished-tasks-list
-							p.note-text #{content}
 		section.create-new-task-section
 			.container
 				.row
@@ -64,7 +63,7 @@ html(lang='en')
 								a.palette-colors-link(href='javascript://')
 									span.palette-colors-item.palette-colors-item__pink
 					.col.text-center
-						p.date Edited: #{date}
+						p.date Edited: 13:28
 					.col.text-right
 						a(href='/')
 							i.material-icons done
@@ -72,4 +71,3 @@ html(lang='en')
 	script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
 	script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')
 	script(src='../js/script.min.js')
-

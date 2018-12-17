@@ -19,7 +19,13 @@ module.exports = (app, db) => {
             }
             res.render('list');
             res.end()
+        })
+
+        .get((req, res) => {
+            res.render('create-list');
+            res.end()
         });
+
     		// .get( async (req, res) => {
         // let allNotes = [];
         // try {
@@ -32,6 +38,29 @@ module.exports = (app, db) => {
 		// });
 
 	app.route('/lists/:id')
+
+        .post ( async (req, res) => {
+            const id = req.params.id;
+            const details = { '_id': ObjectId(id) };
+            const note = {
+                title: req.body.title,
+                content: [
+                    {
+                        id: req.body.content.id,
+                        value: req.body.content.value,
+                        status: req.body.content.status
+                    }
+                ],
+                type: 'list',
+                date: moment().format('DD.MM.YYYY at HH:mm:ss')
+            };
+            try{
+                await db.collection('notes').insertOne(details, note)
+            } catch (err) {
+                console.log(err)
+            }
+            res.send(note)
+        })
 
 		.get( async (req, res) => {
 				const id = req.params.id;

@@ -3,6 +3,7 @@ const moment = require('moment');
 
 module.exports = (app, db) => {
 	app.route('/notes') // <<<<<<<<<<<<<<<<<<<<<<<<< new route
+
 //// add new note
 		.post( async  (req, res) => {
 			const note = {
@@ -19,22 +20,30 @@ module.exports = (app, db) => {
 			console.log(req.body);
 			res.send('note added');
 			// res.end(JSON.stringify(result))
+		})
+
+		.get((req, res) => {
+            res.render('create-note');
+            res.end()
 		});
+
 //// show all notes
-// 		.get( async (req, res) => {
-// 	    let allNotes = [];
-// 	    try {
-// 	      await db.collection('notes').find().forEach(element => allNotes.push(element))
-// 	    }
-// 	    catch (error) {
-// 	    	console.log(error)
-// 	    }
-// 	    res.send(allNotes)
-// 		});
+/*		.get( async (req, res) => {
+	    let allNotes = [];
+	    try {
+	      await db.collection('notes').find().forEach(element => allNotes.push(element))
+	    }
+	    catch (error) {
+	    	console.log(error)
+	    }
+	    res.send(allNotes)
+		});*/
 
 	app.route('/notes/:id') // <<<<<<<<<<<<<<<<<<<<<<<<< new route
+
 //// get certain note
 		.get( async (req, res) => {
+			console.log('hi');
 			const id = req.params.id;
 			const details = { '_id': ObjectId(id) };
 			let result;
@@ -42,7 +51,9 @@ module.exports = (app, db) => {
 				result = await db.collection('notes').findOne(details)
 			} catch (err) { 
 			  console.log(err)
-			}	
+			}
+
+			console.log(result);
 			if (result.type === 'note'){
 				res.render('note', { 
 					title: result.title, 
@@ -54,6 +65,25 @@ module.exports = (app, db) => {
 			// res.send(result)
 			res.end()
 		})
+
+//// post certain note
+        .post ( async (req, res) => {
+            const id = req.params.id;
+            const details = { '_id': ObjectId(id) };
+            const note = {
+                title: req.body.title,
+                content: req.body.body,
+                type: 'note',
+                date: moment().format('DD.MM.YYYY at HH:mm:ss')
+            };
+            try {
+                await db.collection('notes').insertOne(details, note)
+            } catch (err) {
+                console.log(err)
+            }
+            res.send(note)
+        })
+
 //// edit certain note
 		.put ( async (req, res) => {
 	    const id = req.params.id;
@@ -64,20 +94,21 @@ module.exports = (app, db) => {
 				type: 'note',
 				date: moment().format('DD.MM.YYYY at HH:mm:ss')
 			};
-			try{
-		    await db.collection('notes').update(details, note)	
+			try {
+		    	await db.collection('notes').update(details, note)
 			} catch (err) { 
-		    console.log(err)
+		    	console.log(err)
 			}
 			res.send(note)
-	  })
+		})
+
 //// delete certain note
 		.delete( async (req, res) => {
-			const id = req.params.id;
-			const details = { '_id': ObjectId(id) };
-				let result;
-				try{
-					result = await db.collection('notes').remove(details)
+		const id = req.params.id;
+		const details = { '_id': ObjectId(id) };
+		let result;
+			try{
+				result = await db.collection('notes').remove(details)
 			} catch (err) { 
 			  console.log(err)
 			}
