@@ -6,9 +6,12 @@ html(lang='en')
     link(href='https://fonts.googleapis.com/css?family=Comfortaa:400,700|Montserrat+Alternates:400,400i,700,700i&subset=cyrillic,cyrillic-ext,latin-ext', rel='stylesheet')
     link(rel='stylesheet', href='../css/style.min.css')
   body
-    .note-template(identification= id)
+    .note-template(id= id)
       div.note-txt
-        a(href='/') back
+        a(href='/') _back_
+        a(href='/notes') _edit_
       h2.note-title= title
       p.note-txt= text
       p.note-date= date
+
+    script(src='/js/index.js')

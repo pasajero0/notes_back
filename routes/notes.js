@@ -9,7 +9,7 @@ module.exports = (app, db) => {
 				title: req.body.title, 
 				content: req.body.body,
 				type: 'note',
-				date: moment().format('DD.MM.YYYY at HH:mm:ss')
+				date: moment().format('DD.MM.YYYY | HH:mm:ss')
 			};
 			try{
 			 await db.collection('notes').insertOne(note) 	
@@ -18,19 +18,10 @@ module.exports = (app, db) => {
 			}
 			console.log(req.body);
 			res.send('note added');
-			// res.end(JSON.stringify(result))
 		})
-//// show all notes
-		.get( async (req, res) => {
-	    let allNotes = [];
-	    try {
-	      await db.collection('notes').find().forEach(element => allNotes.push(element))
-	    }
-	    catch (error) {
-	    	console.log(error)
-	    }
-	    res.send(allNotes)
-		});
+
+		// .get( async (req, res) => {
+		// });
 
 	app.route('/notes/:id') // <<<<<<<<<<<<<<<<<<<<<<<<< new route
 //// get certain note
@@ -44,7 +35,7 @@ module.exports = (app, db) => {
 			  console.log(err)
 			}	
 			if (result.type === 'note'){
-				res.render('note', { 
+				res.render('todo-note', { 
 					title: result.title, 
 					text: result.content, 
 					date: result.date,
@@ -62,7 +53,7 @@ module.exports = (app, db) => {
 				title: req.body.title, 
 				content: req.body.body,
 				type: 'note',
-				date: moment().format('DD.MM.YYYY at HH:mm:ss')
+				date: moment().format('DD.MM.YYYY | HH:mm:ss')
 			};
 			try{
 		    await db.collection('notes').update(details, note)	
