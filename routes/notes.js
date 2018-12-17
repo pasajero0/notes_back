@@ -5,7 +5,7 @@ module.exports = (app, db) => {
 	app.route('/notes') // <<<<<<<<<<<<<<<<<<<<<<<<< new route
 //// add new note
 		.post( async  (req, res) => {
-			const note = { 
+			const note = {
 				title: req.body.title, 
 				content: req.body.body,
 				type: 'note',
@@ -20,10 +20,17 @@ module.exports = (app, db) => {
 			res.send('note added');
 		})
 
+
+		.get((req, res) => {
+            res.render('create-note');
+            res.end()
+		});
+
 		// .get( async (req, res) => {
 		// });
 
 	app.route('/notes/:id') // <<<<<<<<<<<<<<<<<<<<<<<<< new route
+
 //// get certain note
 		.get( async (req, res) => {
 			const id = req.params.id;
@@ -33,7 +40,9 @@ module.exports = (app, db) => {
 				result = await db.collection('notes').findOne(details)
 			} catch (err) { 
 			  console.log(err)
-			}	
+			}
+
+			console.log(result);
 			if (result.type === 'note'){
 				res.render('todo-note', { 
 					title: result.title, 
@@ -45,6 +54,25 @@ module.exports = (app, db) => {
 			// res.send(result)
 			res.end()
 		})
+
+//// post certain note
+        .post ( async (req, res) => {
+            const id = req.params.id;
+            const details = { '_id': ObjectId(id) };
+            const note = {
+                title: req.body.title,
+                content: req.body.body,
+                type: 'note',
+                date: moment().format('DD.MM.YYYY at HH:mm:ss')
+            };
+            try {
+                await db.collection('notes').insertOne(details, note)
+            } catch (err) {
+                console.log(err)
+            }
+            res.send(note)
+        })
+
 //// edit certain note
 		.put ( async (req, res) => {
 	    const id = req.params.id;
@@ -58,10 +86,11 @@ module.exports = (app, db) => {
 			try{
 		    await db.collection('notes').update(details, note)	
 			} catch (err) { 
-		    console.log(err)
+		    	console.log(err)
 			}
 			res.send(note)
-	  })
+		})
+
 //// delete certain note
 		.delete( async (req, res) => {
 			const id = req.params.id;
@@ -73,5 +102,6 @@ module.exports = (app, db) => {
 			  console.log(err)
 			}
 				res.send('Note ' + id + ' deleted!')
-		})
+
+		});
 };

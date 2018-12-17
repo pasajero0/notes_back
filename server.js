@@ -5,19 +5,15 @@ const bodyParser 	= require('body-parser'); // подключаем middleware �
 const cors 			= require('cors'); // подключаем middleware для упрощения работы с CORS
 const db 			= require('./config/db'); // подключаем файл с настройками для подключения к базе данных
 const app  			= express(); // создаем объект приложения
-// const port 				= process.env.PORT || 8000
-const port 			= 8000;
+const port 			= process.env.PORT || 8000
 
 app.use(cors()); // указываем что необходимо использовать пакет cors
 app.use(bodyParser.json()); // указываем что все запросы необходимо обрабатывать в JSON формате
-// app.use(bodyParser.urlencoded({ extended: true }))
 
-///////////////////////////////////////////////////////
 app.use('/', express.static('public'));
 app.set('view engine', 'pug');
 // app.set('views', './views')
 app.set('views', path.join(__dirname, 'views'));
-///////////////////////////////////////////////////////
 
 MongoClient.connect(db.url, { useNewUrlParser: true }, (err, client) => {
   if(err) return console.log(err); // обработка ошибки

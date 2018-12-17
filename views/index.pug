@@ -2,7 +2,6 @@ doctype html
 html(lang='en')
   head
     meta(charset='UTF-8')
-    meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
     title Notes
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
@@ -21,16 +20,17 @@ html(lang='en')
                 i.material-icons.public public
                 | tes
           .col.text-right
-            a.top-content-icon-link
+            a.top-content-icon-link(href='/notes')
               i.material-icons description
-            a.top-content-icon-link
+            a.top-content-icon-link(href='/lists')
               i.material-icons check_box
     section.main-content
-      #root.container.main-content-notes-container
-        each note, i in notes
-          a.note(id= note._id href='/notes/'+note._id)
-            h2.note-title= note.title
-            p.note-txt= note.content
+      #root
+        .container.main-content-notes-container
+          each value, i in notes
+            a.note(id= value._id href='/'+value.type+'s/'+value._id)
+              h2.note-title= value.title
+              p.note-text= value.content
 
     script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')

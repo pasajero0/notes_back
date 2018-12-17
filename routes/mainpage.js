@@ -1,4 +1,3 @@
-
 module.exports = (app, db) => {
 	app.route('/')
 		.get( async (req, res) => {
@@ -10,6 +9,6 @@ module.exports = (app, db) => {
 	    	console.log(error)
 	    }
 	    res.render('index', { notes: allNotes.reverse()});
-			res.end()
+	    res.end();
 		})
 };
