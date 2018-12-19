@@ -8,6 +8,7 @@ module.exports = (app, db) => {
 	    catch (error) {
 	    	console.log(error)
 	    }
+		console.log(allNotes);
 	    res.render('index', { notes: allNotes.reverse()});
 	    res.end();
 		})

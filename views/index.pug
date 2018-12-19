@@ -1,39 +1,49 @@
 doctype html
 html(lang='en')
-  head
-    meta(charset='UTF-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-    title Notes
-    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
-    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-    link(href='https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&subset=cyrillic', rel='stylesheet')
-    link(rel='stylesheet', href='css/style.min.css')
-  body
-    section.top-content
-      .container
-        .row
-          .col
-            a.top-content__logo
-              h2.top-content__logo-text
-                span
-                  | N
-                i.material-icons.public public
-                | tes
-          .col.text-right
-            a.top-content-icon-link(href='/notes')
-              i.material-icons description
-            a.top-content-icon-link(href='/lists')
-              i.material-icons check_box
-    section.main-content
-      #root
-        .container.main-content-notes-container
-          each value, i in notes
-            a.note(id= value._id href='/'+value.type+'s/'+value._id)
-              h2.note-title= value.title
-              p.note-text= value.content
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		title Notes
+		link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+		link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+		link(href='https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&subset=cyrillic', rel='stylesheet')
+		link(rel='stylesheet', href='css/style.min.css')
+	body
+		section.top-content
+			.container
+				.row
+					.col
+						a.top-content__logo
+							h2.top-content__logo-text
+								span
+									| N
+								i.material-icons.public public
+								| tes
+					.col.text-right
+						a.top-content-icon-link(href='/notes')
+							i.material-icons description
+						a.top-content-icon-link(href='/lists')
+							i.material-icons check_box
+		section.main-content
+			#root
+				.container.main-content-notes-container
+					each value in notes
+						a.note(id= value._id, href= '/' + value.type + 's/' + value._id)
+							case value.type
+								when 'note'
+									h2.note-title= value.title
+									p.note-text= value.content
+								when 'list'
+									h2.note-title= value.title
+									ul.note-text
+										each value1 in value.content.unfinishedTasks
+											li= value1
+										each value2 in value.content.finishedTasks
+											li= value2
 
-    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
-    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')
-    script(src='js/index.js')
-    script(src='js/script.min.js')
+	script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+	script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
+	script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')
+	script(src='../js/note-edit.js')
+	script(src='../js/list-edit.js')
+	script(src='../js/script.min.js')

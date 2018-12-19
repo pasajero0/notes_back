@@ -22,7 +22,7 @@ module.exports = (app, db) => {
 
 
 		.get((req, res) => {
-            res.render('create-note');
+            res.render('note');
             res.end()
 		});
 
@@ -44,7 +44,7 @@ module.exports = (app, db) => {
 
 			console.log(result);
 			if (result.type === 'note'){
-				res.render('todo-note', { 
+				res.render('note', {
 					title: result.title, 
 					text: result.content, 
 					date: result.date,

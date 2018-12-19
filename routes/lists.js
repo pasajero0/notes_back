@@ -21,7 +21,7 @@ module.exports = (app, db) => {
         })
 
         .get((req, res) => {
-            res.render('create-list');
+            res.render('list');
             res.end()
         });
 
@@ -43,13 +43,7 @@ module.exports = (app, db) => {
             const details = { '_id': ObjectId(id) };
             const note = {
                 title: req.body.title,
-                content: [
-                    {
-                        id: req.body.content.id,
-                        value: req.body.content.value,
-                        status: req.body.content.status
-                    }
-                ],
+                content: req.body.body,
                 type: 'list',
                 date: moment().format('DD.MM.YYYY at HH:mm:ss')
             };
@@ -71,16 +65,47 @@ module.exports = (app, db) => {
 				  console.log(err)
 				}	
 				if (result.type === 'list'){
-					res.render('list', { 
-						title: result.title, 
-						content: result.content, 
-						date: result.date,
-						id: result._id
-					})
+                    if (result.content === null) {
+                        res.render('list', {
+                            title: result.title,
+                            content: {
+                                unfinishedTasks: [],
+                                finishedTasks: []
+                            },
+                            date: result.date,
+                            id: result._id
+                        })
+                    } else {
+                        res.render('list', {
+                            title: result.title,
+                            content: result.content,
+                            date: result.date,
+                            id: result._id
+                        })
+                    }
 				}
+
 				// res.send(result)
 				res.end()
 			})
+
+//// edit certain list
+        .put ( async (req, res) => {
+            const id = req.params.id;
+            const details = { '_id': ObjectId(id) };
+            const note = {
+                title: req.body.title,
+                content: req.body.body,
+                type: 'list',
+                date: moment().format('DD.MM.YYYY | HH:mm:ss')
+            };
+            try{
+                await db.collection('notes').update(details, note)
+            } catch (err) {
+                console.log(err)
+            }
+            res.send(note)
+        })
 
 		.delete( async (req, res) => {
 				const id = req.params.id;
