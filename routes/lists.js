@@ -73,14 +73,11 @@ module.exports = (app, db) => {
                             id: result._id
                         })
                     } else {
-                        console.log(typeof JSON.stringify(result.content))
-                        console.log(JSON.stringify(result.content))
                         res.render('list', {
                             title: result.title,
                             content: result.content,
                             date: result.date,
-                            id: result._id,
-                            toLocalStorage: `localStorage.setItem("todo", JSON.stringify(${JSON.stringify(result.content)})))`
+                            id: result._id
                         })
                     }
 				}
@@ -102,7 +99,6 @@ module.exports = (app, db) => {
             } catch (err) {
                 console.log(err)
             }
-            // res.send(note);
             res.end();
         })
 
@@ -115,7 +111,6 @@ module.exports = (app, db) => {
 			} catch (err) {
 				console.log(err)
 			}
-			// res.send('List ' + id + ' deleted!');
             res.end();
 		})
 };

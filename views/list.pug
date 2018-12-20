@@ -14,15 +14,13 @@ html(lang='en')
 				.row
 					.col
 						a.top-content-icon-link(href='/')
-							i.material-icons arrow_back_ios
+							i.material-icons.arrowback arrow_back_ios
 					.col.text-right
-						a.top-content-icon-link(href='/')
-							i.material-icons edit
-						a.top-content-icon-link(href='/')
-							i.material-icons turned_in_not
-						// <i class="material-icons">turned_in</i>
+						//a.top-content-icon-link(href='/')
+							//i.material-icons turned_in_not
+							// <i class="material-icons">turned_in</i>
 						a.top-content-icon-link.delete-btn(note-id= id)
-							i.material-icons(note-id= id) delete_forever
+							i.material-icons.deleteforever(note-id= id) delete_forever
 		section.unfinished-tasks-section
 			.container
 				.row
@@ -31,16 +29,6 @@ html(lang='en')
 						h5.todo-list-title New tasks
 						span.task-line
 						ul#unfinished-tasks-list.unfinished-tasks-list
-							each value in content.unfinishedTasks
-								li.todo-list-item
-									a.material.icons.checkbox
-										i.material-icons check_box_outline_blank
-									label.unfinished-tasks-list-label= value
-									input.todo-list-input(type='text', style='display: none')
-									a.material-icons.edit
-										i.material-icons edit
-									a.material-icons.delete
-										i.material-icons delete
 		section.create-new-task-section
 			.container
 				.row
@@ -58,16 +46,6 @@ html(lang='en')
 						h5.todo-list-title Resolved tasks
 						span.task-line
 						ul#finished-tasks-list.finished-tasks-list
-							each value in content.finishedTasks
-								li.todo-list-item
-									a.material.icons.checkbox
-										i.material-icons check_box
-									label.unfinished-tasks-list-label= value
-									input.todo-list-input(type='text', style='display: none')
-									a.material-icons.edit
-										i.material-icons edit
-									a.material-icons.delete
-										i.material-icons delete
 		section.footer
 			.container
 				.row.align-items-center.footer-content
@@ -87,6 +65,19 @@ html(lang='en')
 					.col.text-right
 						a.send-btn(note-id= id)
 							i.material-icons(note-id= id) done
+	script.
+		const obj = !{JSON.stringify(content)};
+		const newTodo = value => {
+			let finishedTasks = [];
+			let unfinishedTasks = [];
+			value.finishedTasks.forEach(val => finishedTasks.push(val))
+			value.unfinishedTasks.forEach(val => unfinishedTasks.push(val))
+			return {
+				finishedTasks,
+				unfinishedTasks
+			}
+		}
+		localStorage.setItem("todo", JSON.stringify( newTodo(obj) ) );
 
 	script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
 	script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')

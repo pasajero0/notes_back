@@ -54,6 +54,15 @@ function addTask() {
     save();
 }
 addIcon.onclick = addTask;
+/////////////////////////////////////////////////////////////////////////////
+document.querySelector('.arrowback').addEventListener('click', () => {
+	localStorage.removeItem("todo");
+});
+document.querySelector('.deleteforever').addEventListener('click', () => {
+	localStorage.removeItem("todo");
+});
+/////////////////////////////////////////////////////////////////////////////
+
 /// Добавляет пункт при нажатии на enter
 document.querySelector('.form-inline').onsubmit = e => {
 	e.preventDefault();
@@ -141,28 +150,30 @@ function load() {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-const getArrFunc = value => {
-    return value.map(function(item){
-        return item.textContent;
-    });
-};
-const getValue = () => {
-    const unfinishedList = document.querySelectorAll('.unfinished-tasks-section .unfinished-tasks-list-label');
-    const finishedList = document.querySelectorAll('.finished-tasks-section .unfinished-tasks-list-label');
-    const unfinished = Array.prototype.slice.call(unfinishedList);
-    const finished = Array.prototype.slice.call(finishedList);
-    return {
-        unfinishedTasks: getArrFunc(unfinished), 
-        finishedTasks:getArrFunc(finished)
-    };
-};
+// const getArrFunc = value => {
+//     return value.map(function(item){
+//         return item.textContent;
+//     });
+// };
+// const getValue = () => {
+//     const unfinishedList = document.querySelectorAll('.unfinished-tasks-section .unfinished-tasks-list-label');
+//     const finishedList = document.querySelectorAll('.finished-tasks-section .unfinished-tasks-list-label');
+//     const unfinished = Array.prototype.slice.call(unfinishedList);
+//     const finished = Array.prototype.slice.call(finishedList);
+//     document.querySelectorAll('.unfinished-tasks-section').innerHTML = '';
+//     document.querySelectorAll('.finished-tasks-section').innerHTML = '';
+//     return {
+//         unfinishedTasks: getArrFunc(unfinished), 
+//         finishedTasks:getArrFunc(finished)
+//     };
+// };
 /////////////////////////////////////////////////////////////////////////////////////
 let data = load();
 
 // if (load() === null){
-//     data = getValue();
+// 	data = getValue();
 // } else {
-//     data = load();
+// 	data = load();
 // }
 
 // console.log(data)
