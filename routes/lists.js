@@ -21,20 +21,17 @@ module.exports = (app, db) => {
         })
 
         .get((req, res) => {
-            res.render('list');
+            res.render('list', {
+                title: '',
+                content: {
+                    unfinishedTasks: [],
+                    finishedTasks: []
+                },
+                date: null,
+                id: null
+            });
             res.end()
         });
-
-    		// .get( async (req, res) => {
-        // let allNotes = [];
-        // try {
-	     //  await db.collection('notes').find().forEach(element => allNotes.push(element))
-        // }
-        // catch (error) {
-	    	// console.log(error)
-        // }
-        // res.send(allNotes)
-		// });
 
 	app.route('/lists/:id')
 
@@ -76,17 +73,18 @@ module.exports = (app, db) => {
                             id: result._id
                         })
                     } else {
+                        console.log(typeof JSON.stringify(result.content))
+                        console.log(JSON.stringify(result.content))
                         res.render('list', {
                             title: result.title,
                             content: result.content,
                             date: result.date,
-                            id: result._id
+                            id: result._id,
+                            toLocalStorage: `localStorage.setItem("todo", JSON.stringify(${JSON.stringify(result.content)})))`
                         })
                     }
 				}
-
-				// res.send(result)
-				res.end()
+				res.end();
 			})
 
 //// edit certain list
@@ -104,18 +102,20 @@ module.exports = (app, db) => {
             } catch (err) {
                 console.log(err)
             }
-            res.send(note)
+            // res.send(note);
+            res.end();
         })
 
 		.delete( async (req, res) => {
-				const id = req.params.id;
-				const details = { '_id': ObjectId(id) };
-				let result;
-				try{
-					result = await db.collection('notes').remove(details)
-				} catch (err) {
-					console.log(err)
-				}
-				res.send('List ' + id + ' deleted!')
-			});
+			const id = req.params.id;
+			const details = { '_id': ObjectId(id) };
+			let result;
+			try{
+				result = await db.collection('notes').remove(details)
+			} catch (err) {
+				console.log(err)
+			}
+			// res.send('List ' + id + ' deleted!');
+            res.end();
+		})
 };
