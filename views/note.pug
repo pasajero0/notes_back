@@ -26,23 +26,13 @@ html(lang='en')
 			.container
 				.row
 					.col
-						input.form-control.form-control-lg.todo-note-title(type='text', placeholder='Add title', name='title', value= title)
+						input.form-control.form-control-lg.todo-note-title(type='text', placeholder='Add title', name='title', value= title, autocomplete="off")
 						textarea.form-control.roun0.todo-note-text(rows='6', placeholder='Add note')= text
 
 		section.footer
 			.container
 				.row.align-items-center.footer-content
 					.col.palette-icon-column
-						.palette-icon-container
-							a.palette-icon-link(href='javascript://')
-								i.material-icons.palette palette
-							.palette-colors
-								a.palette-colors-link(href='javascript://')
-									span.palette-colors-item.palette-colors-item__yellow
-								a.palette-colors-link(href='javascript://')
-									span.palette-colors-item.palette-colors-item__blue
-								a.palette-colors-link(href='javascript://')
-									span.palette-colors-item.palette-colors-item__pink
 					.col.text-center
 						p.date= date
 					.col.text-right

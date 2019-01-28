@@ -13,12 +13,10 @@ html(lang='en')
 			.container
 				.row
 					.col
-						a.top-content__logo
+						a.top-content__logo(href= '/')
 							h2.top-content__logo-text
 								span
-									| N
-								i.material-icons.public public
-								| tes
+									| Notes
 					.col.text-right
 						a.top-content-icon-link(href='/notes')
 							i.material-icons description
@@ -42,7 +40,7 @@ html(lang='en')
 											each value1 in value.content.unfinishedTasks
 												li= value1
 											each value2 in value.content.finishedTasks
-												li= value2
+												li.checked= value2
 
 	script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
 	script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
